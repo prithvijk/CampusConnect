@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Resources | CampusConnect</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7fc;color:#172554}
+header{background:white;padding:20px 7%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold;color:#2563eb}
+header a{color:#2563eb;text-decoration:none}
+main{max-width:1000px;margin:35px auto;padding:20px}
+h1{margin-bottom:10px}
+p{color:#64748b}
+.panel{background:white;padding:25px;border-radius:14px;margin-top:25px;border:1px solid #e5eaf2}
+input,select{width:100%;padding:13px;margin:10px 0;border:1px solid #dbe2ef;border-radius:8px}
+button{background:#2563eb;color:white;padding:13px 20px;border:0;border-radius:8px;cursor:pointer}
+button:hover{background:#1e40af}
+.resource{background:white;padding:18px;border:1px solid #e5eaf2;border-radius:10px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.resource h3{margin:0 0 7px}
+.resource p{margin:0;font-size:13px}
+.download{color:#2563eb;text-decoration:none;font-weight:bold}
+@media(max-width:600px){.resource{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">CampusConnect.</div>
+<a href="index.html">← Back to Home</a>
+</header>
+
+<main>
+<h1>Academic Resources 📚</h1>
+<p>Share knowledge. Learn together. Grow together.</p>
+
+<section class="panel">
+<h2>Upload a Resource</h2>
+<form id="uploadForm">
+<input id="title" placeholder="Resource title" required>
+
+<select id="type" required>
+<option value="">Select resource type</option>
+<option>Study Notes</option>
+<option>Question Paper</option>
+<option>Study Material</option>
+</select>
+
+<select id="department" required>
+<option value="">Select department</option>
+<option>Computer Science</option>
+<option>Information Science</option>
+<option>Mechanical Engineering</option>
+<option>Civil Engineering</option>
+<option>Electronics and Communication</option>
+<option>Other</option>
+</select>
+
+<select id="semester" required>
+<option value="">Select semester</option>
+<option>Semester 1</option>
+<option>Semester 2</option>
+<option>Semester 3</option>
+<option>Semester 4</option>
+<option>Semester 5</option>
+<option>Semester 6</option>
+<option>Semester 7</option>
+<option>Semester 8</option>
+</select>
+
+<input id="file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" required>
+
+<button type="submit">Upload Resource</button>
+</form>
+<p id="message"></p>
+</section>
+
+<section>
+<h2>Available Resources</h2>
+<div id="resourceList">
+<p>No resources uploaded yet. Be the first to share!</p>
+</div>
+</section>
+</main>
+
+<script>
+const form=document.getElementById("uploadForm");
+const list=document.getElementById("resourceList");
+const message=document.getElementById("message");
+
+form.addEventListener("submit",function(e){
+e.preventDefault();
+
+const file=document.getElementById("file").files[0];
+
+if(!file)return;
+
+const title=document.getElementById("title").value;
+const type=document.getElementById("type").value;
+const department=document.getElementById("department").value;
+const semester=document.getElementById("semester").value;
+
+const url=URL.createObjectURL(file);
+
+const card=document.createElement("div");
+card.className="resource";
+
+const details=document.createElement("div");
+const heading=document.createElement("h3");
+heading.textContent=title;
+const info=document.createElement("p");
+info.textContent=type+" | "+department+" | "+semester;
+
+details.append(heading,info);
+
+const download=document.createElement("a");
+download.href=url;
+download.download=file.name;
+download.textContent="Download ↓";
+download.className="download";
+
+card.append(details,download);
+
+if(list.querySelector("p"))list.innerHTML="";
+list.prepend(card);
+
+message.textContent="Resource added successfully!";
+form.reset();
+});
+</script>
+
+</body>
+</html>
