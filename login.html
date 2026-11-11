@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | CampusConnect</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f1f5ff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.container{background:white;padding:38px;border-radius:16px;width:100%;max-width:420px;box-shadow:0 8px 30px #1e40af15}
+h1{color:#2563eb;margin-bottom:8px}
+p{color:#64748b}
+input{width:100%;padding:14px;margin:12px 0;border:1px solid #dbe2ef;border-radius:8px}
+button{width:100%;padding:14px;background:#2563eb;color:white;border:0;border-radius:8px;cursor:pointer;margin-top:12px}
+a{color:#2563eb;text-decoration:none}
+#message{color:#dc2626}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Welcome Back!</h1>
+<p>Login to your CampusConnect account.</p>
+
+<form id="loginForm">
+<input id="email" type="email" placeholder="College Email" required>
+<button type="submit">Login</button>
+</form>
+
+<p id="message"></p>
+<p>New student? <a href="register.html">Create an account</a></p>
+<a href="index.html">← Back to Home</a>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit",function(e){
+e.preventDefault();
+
+const email=document.getElementById("email").value.trim().toLowerCase();
+const student=JSON.parse(localStorage.getItem("campusStudent")||"null");
+
+if(student && student.email.toLowerCase()===email){
+window.location.href="dashboard.html";
+}else{
+document.getElementById("message").textContent=
+"No registered student found. Please register first.";
+}
+});
+</script>
+</body>
+</html>
