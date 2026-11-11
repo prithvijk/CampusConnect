@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Connect | CampusConnect</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7fc;color:#172554}
+header{background:white;padding:20px 7%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold;color:#2563eb}
+header a{color:#2563eb;text-decoration:none}
+main{max-width:1050px;margin:35px auto;padding:20px}
+.intro{background:linear-gradient(120deg,#1d4ed8,#60a5fa);padding:35px;border-radius:16px;color:white}
+.intro p{line-height:1.6}
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin:25px 0}
+input,select{padding:13px;border:1px solid #dbe2ef;border-radius:9px;flex:1;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:white;padding:25px;border:1px solid #e5eaf2;border-radius:14px}
+.avatar{width:55px;height:55px;background:#dbeafe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:25px}
+.card h3{margin-bottom:8px}
+.card p{font-size:14px;color:#64748b;line-height:1.6}
+.tag{display:inline-block;background:#eff6ff;color:#2563eb;padding:6px 10px;border-radius:20px;font-size:12px;margin:4px 0}
+button{background:#2563eb;color:white;border:0;border-radius:8px;padding:12px 18px;cursor:pointer;margin-top:12px}
+button:hover{background:#1e40af}
+#empty{color:#64748b}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">CampusConnect.</div>
+<a href="index.html">← Back to Home</a>
+</header>
+
+<main>
+<section class="intro">
+<h1>Meet Your Seniors 🤝</h1>
+<p>Learn from experience. Find guidance. Build meaningful connections.</p>
+</section>
+
+<h2>Find a Senior</h2>
+
+<div class="filters">
+<input id="search" placeholder="Search by name or expertise...">
+<select id="department">
+<option value="">All Departments</option>
+<option>Computer Science</option>
+<option>Information Science</option>
+<option>Mechanical Engineering</option>
+<option>Electronics and Communication</option>
+</select>
+</div>
+
+<div class="grid" id="seniorList"></div>
+<p id="empty"></p>
+</main>
+
+<script>
+const seniors=[
+{
+name:"Arjun Kumar",
+department:"Computer Science",
+year:"4th Year",
+expertise:"Web Development, Internships",
+initial:"A"
+},
+{
+name:"Sneha Rao",
+department:"Information Science",
+year:"4th Year",
+expertise:"Placements, DSA",
+initial:"S"
+},
+{
+name:"Rahul Shetty",
+department:"Mechanical Engineering",
+year:"3rd Year",
+expertise:"CAD, Design",
+initial:"R"
+},
+{
+name:"Ananya Pai",
+department:"Electronics and Communication",
+year:"4th Year",
+expertise:"Projects, Internships",
+initial:"A"
+}
+];
+
+const list=document.getElementById("seniorList");
+
+function displaySeniors(){
+const query=document.getElementById("search").value.toLowerCase();
+const department=document.getElementById("department").value;
+
+const filtered=seniors.filter(s=>{
+return (s.name.toLowerCase().includes(query) ||
+s.expertise.toLowerCase().includes(query)) &&
+(!department || s.department===department);
+});
+
+list.innerHTML="";
+document.getElementById("empty").textContent=
+filtered.length ? "" : "No matching seniors found.";
+
+filtered.forEach(s=>{
+const card=document.createElement("div");
+card.className="card";
+
+const avatar=document.createElement("div");
+avatar.className="avatar";
+avatar.textContent=s.initial;
+
+const name=document.createElement("h3");
+name.textContent=s.name;
+
+const dept=document.createElement("p");
+dept.textContent=s.department+" | "+s.year;
+
+const expertise=document.createElement("span");
+expertise.className="tag";
+expertise.textContent=s.expertise;
+
+const btn=document.createElement("button");
+btn.textContent="Request Guidance";
+btn.onclick=()=>{
+const message=prompt("Write a short mentorship request:");
+if(message && message.trim()){
+const requests=JSON.parse(
+localStorage.getItem("mentorshipRequests")||"[]"
+);
+requests.push({
+senior:s.name,
+message:message,
+date:new Date().toISOString()
+});
+localStorage.setItem("mentorshipRequests",
+JSON.stringify(requests));
+alert("Request saved successfully!");
+}
+};
+
+card.append(avatar,name,dept,expertise,document.createElement("br"),btn);
+list.appendChild(card);
+});
+}
+
+document.getElementById("search").addEventListener("input",displaySeniors);
+document.getElementById("department").addEventListener("change",displaySeniors);
+
+displaySeniors();
+</script>
+</body>
+</html>
