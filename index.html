@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusConnect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            color: #172554;
+        }
+
+        header {
+            background: #1d4ed8;
+            color: white;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 90px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            color: #64748b;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            width: 260px;
+            box-shadow: 0 4px 15px #00000010;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>CampusConnect</h2>
+    <span>Student Community</span>
+</header>
+
+<section class="hero">
+    <h1>Your Campus. Your Community.</h1>
+    <p>Connect with seniors, share knowledge and access academic resources.</p>
+    <button onclick="alert('Welcome to CampusConnect!')">
+        Get Started
+    </button>
+</section>
+
+<section class="features">
+    <div class="card">
+        <h3>Senior Connect</h3>
+        <p>Connect with seniors and get guidance.</p>
+    </div>
+
+    <div class="card">
+        <h3>Study Resources</h3>
+        <p>Access notes and previous year question papers.</p>
+    </div>
+
+    <div class="card">
+        <h3>Student Community</h3>
+        <p>Build connections with students across departments.</p>
+    </div>
+</section>
+
+</body>
+</html>
