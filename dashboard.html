@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | CampusConnect</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fc;color:#172554}
+header{background:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5eaf2}
+.logo{font-size:23px;font-weight:bold;color:#2563eb}
+header button,.btn{background:#2563eb;color:white;padding:11px 17px;border:0;border-radius:8px;cursor:pointer}
+.layout{display:flex;min-height:calc(100vh - 65px)}
+aside{width:220px;background:white;padding:30px 20px;border-right:1px solid #e5eaf2}
+aside a{display:block;padding:14px;color:#475569;text-decoration:none;border-radius:8px;margin:5px 0}
+aside a:hover{background:#eff6ff;color:#2563eb}
+main{flex:1;padding:35px;max-width:1150px}
+.welcome{background:linear-gradient(120deg,#1d4ed8,#60a5fa);padding:30px;border-radius:16px;color:white}
+.welcome p{line-height:1.6}
+.profile{background:white;padding:20px;border-radius:12px;margin:22px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.card{background:white;padding:22px;border-radius:13px;border:1px solid #e5eaf2}
+.card h3{margin:12px 0}
+.card p{color:#64748b;font-size:14px;line-height:1.5}
+.icon{font-size:27px}
+.activity{background:white;padding:20px;border-radius:12px;margin-top:22px}
+.activity p{padding:12px 0;border-bottom:1px solid #eee;color:#64748b}
+@media(max-width:650px){
+.layout{display:block}
+aside{width:100%;display:flex;overflow-x:auto;padding:10px}
+aside a{white-space:nowrap}
+main{padding:18px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">CampusConnect.</div>
+<button onclick="logout()">Logout</button>
+</header>
+
+<div class="layout">
+<aside>
+<a href="dashboard.html">🏠 Dashboard</a>
+<a href="seniors.html">🤝 Senior Connect</a>
+<a href="resources.html">📚 Resources</a>
+<a href="index.html">🌐 Home</a>
+</aside>
+
+<main>
+<section class="welcome">
+<h1 id="greeting">Welcome to CampusConnect!</h1>
+<p>Your college community, all in one place.</p>
+</section>
+
+<section class="profile">
+<h3>👤 Student Profile</h3>
+<p id="details">Student information will appear here after registration.</p>
+</section>
+
+<h2>Quick Access</h2>
+<div class="grid">
+<div class="card">
+<div class="icon">🤝</div>
+<h3>Senior Connect</h3>
+<p>Find experienced seniors and seek guidance.</p>
+<a href="seniors.html"><button class="btn">Explore</button></a>
+</div>
+
+<div class="card">
+<div class="icon">📚</div>
+<h3>Study Materials</h3>
+<p>Discover notes and academic resources.</p>
+<a href="resources.html"><button class="btn">Explore</button></a>
+</div>
+
+<div class="card">
+<div class="icon">📝</div>
+<h3>Question Papers</h3>
+<p>Prepare using previous-year papers.</p>
+<a href="resources.html"><button class="btn">Explore</button></a>
+</div>
+</div>
+
+<section class="activity">
+<h2>Recent Activity</h2>
+<div id="activity">
+<p>Welcome! Start exploring your campus community.</p>
+</div>
+</section>
+
+</main>
+</div>
+
+<script>
+const student=JSON.parse(localStorage.getItem("campusStudent")||"null");
+
+if(!student){
+document.getElementById("details").textContent="Please register to view your profile.";
+}else{
+document.getElementById("greeting").textContent="Welcome, "+student.name+"! 👋";
+document.getElementById("details").textContent=
+student.department+" | "+student.year+" | "+student.role;
+}
+
+function logout(){
+localStorage.removeItem("campusStudent");
+window.location.href="index.html";
+}
+</script>
+
+</body>
+</html>
