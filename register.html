@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join CampusConnect</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f1f5ff;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.container{background:white;padding:35px;border-radius:16px;width:100%;max-width:480px;box-shadow:0 8px 30px #1e40af15}
+h1{color:#2563eb;margin-bottom:8px}
+p{color:#64748b}
+input,select{width:100%;padding:13px;margin:10px 0;border:1px solid #dbe2ef;border-radius:8px}
+button{width:100%;padding:14px;background:#2563eb;color:white;border:0;border-radius:8px;margin-top:15px;cursor:pointer}
+a{color:#2563eb;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Join CampusConnect</h1>
+<p>Connect, collaborate and grow together.</p>
+
+<form id="registerForm">
+<input id="name" placeholder="Full Name" required>
+<input id="email" type="email" placeholder="College Email" required>
+
+<select id="department" required>
+<option value="">Select Department</option>
+<option>Computer Science</option>
+<option>Information Science</option>
+<option>Mechanical Engineering</option>
+<option>Civil Engineering</option>
+<option>Electronics and Communication</option>
+<option>Other</option>
+</select>
+
+<select id="year" required>
+<option value="">Year of Study</option>
+<option>1st Year</option>
+<option>2nd Year</option>
+<option>3rd Year</option>
+<option>4th Year</option>
+</select>
+
+<select id="role" required>
+<option value="">Select Student Role</option>
+<option>Junior</option>
+<option>Senior</option>
+</select>
+
+<button type="submit">Create Account</button>
+</form>
+<p id="message"></p>
+<a href="index.html">← Back to Home</a>
+</div>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit",function(e){
+e.preventDefault();
+
+const email=document.getElementById("email").value;
+
+if(!email.toLowerCase().endsWith(".edu") && !email.toLowerCase().includes("@mite.ac.in")){
+document.getElementById("message").innerText="Please use your college email address.";
+return;
+}
+
+const student={
+name:document.getElementById("name").value,
+email:email,
+department:document.getElementById("department").value,
+year:document.getElementById("year").value,
+role:document.getElementById("role").value
+};
+
+localStorage.setItem("campusStudent",JSON.stringify(student));
+document.getElementById("message").innerText="Registration successful! Welcome "+student.name;
+});
+</script>
+</body>
+</html>
+
